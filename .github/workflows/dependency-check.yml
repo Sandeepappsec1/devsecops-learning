@@ -22,7 +22,7 @@ jobs:
           project: 'devsecops-learning'
           failOnCVSS: '7'                  # fail job on CVSS >= 7 (HIGH)
           # updateDatabase: true          # optional: force DB update (default true)
-      
+
       - name: Upload Dependency-Check HTML report
         if: always()
         uses: actions/upload-artifact@v4
