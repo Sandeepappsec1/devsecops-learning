@@ -1,0 +1,31 @@
+name: Dependency-Check (SCA)
+
+on:
+  push:
+    branches:
+      - devsecops-learning
+      - main
+  pull_request:
+
+jobs:
+  dependency-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run OWASP Dependency-Check
+        uses: jeremylong/DependencyCheck@v4
+        with:
+          scan: '.'                        # scan repo root
+          format: 'ALL'                    # outputs: HTML, XML, JSON
+          project: 'devsecops-learning'
+          failOnCVSS: '7'                  # fail job on CVSS >= 7 (HIGH)
+          # updateDatabase: true          # optional: force DB update (default true)
+      
+      - name: Upload Dependency-Check HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-check-report
+          path: dependency-check-report.html
