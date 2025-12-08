@@ -6,6 +6,7 @@ on:
       - dev
       - devsecops-learning
   pull_request:
+
 jobs:
   semgrep:
     runs-on: ubuntu-latest
