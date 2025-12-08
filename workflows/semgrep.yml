@@ -1,5 +1,4 @@
 name: Semgrep Code Scan
-
 on:
   push:
     branches:
@@ -7,25 +6,19 @@ on:
       - dev
       - devsecops-learning
   pull_request:
-
 jobs:
   semgrep:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
-
-      - name: Setup Python (Semgrep requires Python)
+      - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.x
-
       - name: Install Semgrep
         run: pip install semgrep
-
       - name: Run Semgrep Scan
         run: semgrep --config auto --error --json > semgrep-report.json
-
       - name: Upload report as artifact
         uses: actions/upload-artifact@v3
         with:
